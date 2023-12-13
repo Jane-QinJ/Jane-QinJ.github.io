@@ -12,12 +12,11 @@
 独立是我小时候的期望，慢慢实现的过程确实蛮难，却是必经之路吧。
 时间还长，慢慢来好了。
 take care.
+:::{figure-md} markdown-fig
+<img src="./images/2023.12.13_0.jpg" alt="2023.12.13_0" />
 
-<img src=".\images\2023.12.13_0.jpg" alt="2023.12.13_0" />
-
-<center>图1 北京的大雪</center>
-
-
+北京的大雪
+:::
 
 [](section-label)
 
