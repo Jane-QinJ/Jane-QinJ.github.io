@@ -4,9 +4,12 @@
 
 [Tuition, scholarships, visas, and places to live](https://www.kyoto-u.ac.jp/en/education-campus/faq/2-2)
 
-<img src=".\images\官网信息_设施_faq等.png" alt="官网信息_设施_faq等" />
+:::{figure-md} markdown-fig
 
-<center>图1 官网信息</center>
+<img src="./images/官网信息_设施_faq等.png" alt="官网信息_设施_faq等" />
+
+官网信息、设施、faq等
+:::
 
 ## 1. How much are the application, admission, and tuition fees?
 
@@ -320,8 +323,11 @@ Please visit the following pages for details.
 衣物、个人护理品、娱乐等日常开销
 
 
+:::{figure-md} markdown-fig
+<img src="./images/出入国在留管理厅.png" alt="出入国在留管理厅" />
 
-<img src=".\images\出入国在留管理厅.png" alt="出入国在留管理厅" />
+出入国在留管理厅
+:::
 
 汽车在日本的价格取决于多个因素，包括品牌、型号、车龄、配置和市场需求等。以下是一些对于新车和二手车的大致价格范围：
 
