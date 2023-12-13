@@ -3,8 +3,16 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: Kyoto University
-- file: diary
+
+parts:
+  - caption: Kyoto University
+    chapters:
+    - file:  Kyoto University/Related information
+  
+  - caption: Daily Life
+    chapters:
+    - file:  Life/diary
+    
+#chapters:
+#- file: markdown
+#- file: notebooks
