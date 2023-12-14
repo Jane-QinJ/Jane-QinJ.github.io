@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>关于Java类中数组对象创建的疑问 &#8212; Jane Qin Space</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Coding language/JAVA/Java';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Java Design Pattern" href="Java_Design_pattern.html" />
+    <link rel="prev" title="Computer repair" href="../computer_repair.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Kyoto University</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Kyoto%20University/Related%20information.html">京都大学相关资讯</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Daily Life</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Life/diary.html">工作生活日记</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coding language</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git_basic.html">Git的三个工作区和四种状态</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_cmd.html">Basic cmd command:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer_repair.html">Computer repair</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Java</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">关于Java类中数组对象创建的疑问</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Java_Design_pattern.html">Java Design Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Java_static_final.html">Java中静态(static)变量、方法与实例变量、方法的规范</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../C/Basic_C_note.html">Basic C note</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Jane-QinJ/Jane-QinJ.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Jane-QinJ/Jane-QinJ.github.io/issues/new?title=Issue%20on%20page%20%2FCoding language/JAVA/Java.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/Coding language/JAVA/Java.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>关于Java类中数组对象创建的疑问</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="java">
+<h1>关于Java类中数组对象创建的疑问<a class="headerlink" href="#java" title="Permalink to this heading">#</a></h1>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Mix4</span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">){</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Mix4</span><span class="w"> </span><span class="o">[]</span><span class="w"> </span><span class="n">m4a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mix4</span><span class="o">[</span><span class="mi">20</span><span class="o">]</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">9</span><span class="p">){</span>
+<span class="w">      </span><span class="n">m4a</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mix4</span><span class="p">();</span>
+<span class="w">      </span><span class="n">m4a</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="p">.</span><span class="na">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m4a</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="p">.</span><span class="na">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m4a</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="p">.</span><span class="na">maybeNew</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="w">      </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">count</span><span class="o">+</span><span class="s">&quot; &quot;</span><span class="o">+</span><span class="n">m4a</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">.</span><span class="na">counter</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">maybeNew</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="p">){</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">index</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">){</span>
+<span class="w">        </span><span class="n">Mix4</span><span class="w"> </span><span class="n">m4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mix4</span><span class="p">();</span>
+<span class="w">        </span><span class="n">m4</span><span class="p">.</span><span class="na">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m4</span><span class="p">.</span><span class="na">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>这是Head First Java 中的一个习题， 在解答的过程中发现自己不了解以下几个知识点：</p>
+<ul class="simple">
+<li><p>类实例变量的初始化</p></li>
+<li><p>数组对象的创建</p></li>
+</ul>
+<p>对于第一个问题，<strong>类实例变量的初始化</strong>，在可视化的过程中我有了新的理解，先放上整个过程的结果。
+<img alt="代码执行的图示" src="https://raw.githubusercontent.com/Jane-QinJ/Jane-QinJ.github.io/master/images/1.png" /></p>
+<p>下面写下我在执行这个程序中遇到并解决的一些问题</p>
+<ol class="arabic simple">
+<li><p><strong>程序是从main()开始的</strong>
+（这点我之前一直默认自己知道，但是程序真正执行起来，才发觉自己对这点的疏忽，还是需要谦虚些，默认自己什么都不知道，每个点都要踏踏实实扣下去）
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113151016479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_100" /></p></li>
+<li><p><strong>数组是一个对象</strong>， 无论被声明来承载的是primitive主类型数据或对象引用，数组永远是对象。
+数组对象可以有primitive主数据类型的元素，但数组本身绝对不会是primitive主数据类型， 不管数组带有什么， 它一定是对象。</p></li>
+</ol>
+<p>这句话的理解，在我看来可以这样解释：
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113151905260.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_70" /></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Mix4</span> <span class="p">[]</span> <span class="n">m4a</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>这段程序可以分为三部分</p>
+<ol class="arabic simple">
+<li><p>对象的声明</p></li>
+<li><p>对象的创建</p></li>
+<li><p>赋值</p></li>
+</ol>
+<ul class="simple">
+<li><p>对象的声明</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Mix4</span><span class="p">[]</span> <span class="n">m4a</span>
+</pre></div>
+</div>
+<p>声明了一个<strong>类型</strong>为Mix4[]的<strong>数组变量</strong>， 它的名称是m4a.</p>
+<p>这里补充一下，java注重类型， 声明变量必须有类型和名称（variables must have a type, variables must have a name）</p>
+<p>to be continued….</p>
+<ul class="simple">
+<li><p>对象的创建</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span> <span class="n">Mix4</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>创建大小为20的数组(这有着20个存储空间整体，为一个Mix4数组对象）
+而这20个存储空间可以用来存储类型为Mix4的对象</p>
+<p>这里只保存着Mix4的引用
+相当于只声明了对象,没有创建实际的Mix4对象。</p>
+<blockquote>
+<div><p>可以这么理解</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Mix4</span> <span class="n">m4a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>数组中第一个索引里存放的是Mix4的引用<br />
+要创建Mix4对象的话 还要</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m4a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">();</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>赋值
+连接对象和引用， 将Mix4[20]这个大小为20的数组，赋值给之前声明为Mix4[]的数组变量m4a.</p></li>
+</ul>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113154401235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_70" />
+从上图中， 我们看到m4a这个数组变量，相当于一个遥控器，它指向了数组对象（也就是Mix4[20]），这个数组变量也称引用变量。</p>
+<p>我们可以把变量看做杯子，变量用来装东西，也就是往杯子中装东西。
+比如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bype</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>就是代表数值7的字节（00000111）被放进变量中。</p>
+<p>只不过这个引用变量装的东西比较特别，它放的东西代表<strong>取得Mix4[20]对象的方法</strong>以字节形式放进变量中，也就相当于一个遥控器， 这个引用变量可以通过 圆点“.”运算符来引用对象的方法和实例变量。</p>
+<p>在数组中，对数组的操作可以不需要变量名称。只需要数组索引（位置）就可以操作特定对象：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Mix4</span> <span class="p">[]</span> <span class="n">m4a</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="n">m4a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">();</span>
+<span class="n">m4a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">m4a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>这段代码代表了程序第一次执行while循环时，x=0情况下，Mix4数组变量m4a[0]对Mix4对象的操作。
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113160332134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_70" />
+注意：
+Mix4[20]数组中存放的仅仅是对Mix对象的引用， 还需要创建实际的Mix对象</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span> <span class="n">Mix4</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>，并把它赋值给数组的元素</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m4a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>我理解错误的点主要在于对类实例变量的理解。
+我把实例变量counter看做每个对象都可以进行修改的值，错误的把counter进行了累加。</p>
+<p>实际上，每个类是对象的蓝图。 创建一个对象就是对类的实例化。 这个对象会有自己的实例变量和方法。</p>
+<p>对象本身一致的事物被称为：实例变量（instance variable）
+对象可以执行的动作称为：方法（methods）
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113161209191.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_70" />
+可以看到程序进行到第8行时，new Mix4()创建了一个Mix4类型的对象， 它执行了两次初始化&lt;init:2&gt;, 并且这个对象根据Mix4这个类的蓝图， 初始化了自己的实例变量counter = 0.</p>
+<p>之后将这个初始化了的对象赋值给了引用变量m4a[0]
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113161432105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_70" /></p>
+<p>所以每一个数组引用变量都会有一个Mix4对象， 这些对象虽然是同一个类， 但每个都有自己独立的实例变量， 也就是counter. 而这个counter在创建对象时都会被赋值为0.</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190113162729536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FpbnFpblRheWxvcg==,size_16,color_FFFFFF,t_70" /></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Mix4</span> <span class="p">[]</span> <span class="n">m4a</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="n">m4a</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mix4</span><span class="p">();</span>
+<span class="n">m4a</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">m4a</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>现在重看这行代码， 你是否能有新的理解呢</p>
+<hr class="docutils" />
+<p>如有错误地方，请大家指正。
+共同学习，共同进步，期待大家的issue~</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Jane-QinJ/Jane-QinJ.github.io",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Coding language\JAVA"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../computer_repair.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Computer repair</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Java_Design_pattern.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Java Design Pattern</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jane Qin
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

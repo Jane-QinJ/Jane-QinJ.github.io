@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Git的三个工作区和四种状态 &#8212; Jane Qin Space</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Coding language/git_basic';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Basic cmd command:" href="basic_cmd.html" />
+    <link rel="prev" title="工作生活日记" href="../Life/diary.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Kyoto University</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Kyoto%20University/Related%20information.html">京都大学相关资讯</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Daily Life</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Life/diary.html">工作生活日记</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coding language</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Git的三个工作区和四种状态</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_cmd.html">Basic cmd command:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C/Basic_C_note.html">一、 文本显示</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Jane-QinJ/Jane-QinJ.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Jane-QinJ/Jane-QinJ.github.io/issues/new?title=Issue%20on%20page%20%2FCoding language/git_basic.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Coding language/git_basic.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Git的三个工作区和四种状态</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-a-git-repository">1. Getting a Git Repository</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-a-repository-in-an-existing-directory">Initializing a Repository in an Existing Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-an-existing-repository">Cloning an Existing Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-changes-to-the-repository">Recording Changes to the Repository</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-the-status-of-your-files">Checking the Status of Your Files（检查当前文件状态）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="git">
+<h1>Git的三个工作区和四种状态<a class="headerlink" href="#git" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://git-scm.com/book/en/v2">Git帮助手册</a>  git命令全面介绍</p>
+<p>创建一个版本控制的文件, 用到的这些git指令， 可以对照着手册进行阅读</p>
+<ul class="simple">
+<li><p>git init</p></li>
+<li><p>git add</p></li>
+<li><p>git commit</p></li>
+<li><p>git push</p></li>
+</ul>
+<p>今天尝试git commit, 提示我有untracked file
+<img alt="在这里插入图片描述" src="https://camo.githubusercontent.com/776d307b33003093c6613b437c82193ffda0d5dc/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133303231313535353130312e706e67" />
+有些疑惑， 于是去查看了git帮助手册
+在第一章<a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics">1.3 git basics</a> 中， 了解到了git的三种状态</p>
+<ul class="simple">
+<li><p>committed(已提交)</p></li>
+<li><p>modified(已修改)</p></li>
+<li><p>staged(已暂存)
+下面看看手册中如何解释这三个状态</p></li>
+<li><p>Committed means that the data is safely stored in your local database.
+committed意味着数据被安全的存储在你的本地数据库中</p></li>
+<li><p>Modified means that you have changed the file but have not committed it to your database yet.
+modified意味着你已经改变了你的文件但是还没有把改变提交到你的数据库中</p></li>
+<li><p>Staged means that you have marked a modified file in its current version to go into your next commit snapshot.
+staged意味着对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。（个人理解， 就是修改的文件准备好要被提交（commit）了）</p></li>
+</ul>
+<p>由此引入 Git 项目的<a id="concept">三个工作区域的概念</a>：Git 仓库（the Git directory,） 工作目录（ the working tree）以及暂存区域（the staging area.）。
+<img alt="在这里插入图片描述" src="https://camo.githubusercontent.com/28a645732cce079b4f4ab0a2a0cf005eb512055d/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f323031393031333032313333323733332e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" /></p>
+<ul class="simple">
+<li><p>The Git directory is where Git stores the metadata and object database for your project. This is the most important part of Git, and it is what is copied when you clone a repository from another computer.
+git directory 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</p></li>
+<li><p>The working tree is a single checkout of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.
+working tree（工作目录）是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。（我理解为自己电脑上本地磁盘上的文件）</p></li>
+<li><p>The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit. Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
+（staging area）暂存区域是一个文件，它保存了下次将提交（commit）的文件列表信息，一般在 git directory中。 有时候也被称作`‘索引(index)’’，不过一般说法还是叫暂存区域(staging area)。</p></li>
+</ul>
+<p>The basic Git workflow goes something like this:
+基本的 Git 工作流程如下：</p>
+<p>You modify files in your working tree.
+你修改的文件在working tree（工作目录）中  （也就是你在本地磁盘上想要版本控制的那个文件）</p>
+<p>You selectively stage just those changes you want to be part of your next commit, which adds only those changes to the staging area.
+选择暂存那些你想放到下一次提交（commit）的改变，将文件快照（也就是改变后的文件）</p>
+<p>You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.
+提交更新，找到暂存区域（staging area）的文件，将快照永久性存储到 Git 仓库目录。(git directory)</p>
+<p>If a particular version of a file is in the Git directory, it’s considered committed.
+如果 Git 目录中保存着的特定版本文件，就属于已提交状态(committed)。</p>
+<p>If it has been modified and was added to the staging area, it is staged.
+如果作了修改并已放入暂存区域，就属于已暂存状态(staged)。</p>
+<p>And if it was changed since it was checked out but has not been staged, it is modified.
+如果自上次取出后，作了修改但还没有放到暂存区域，就是已修改状态。(modified)</p>
+<p>回到刚刚我遇到的问题，提示我nothing added to commit but untracked files present
+没有被加到提交(commit)中的文件， 但是有untraked(未跟踪)的文件
+为了知道这个未跟踪是什么意思， 我又找到了另一节内容。</p>
+<p>第二节内容大致概括了Git的大部分操作， 推荐初学者看。</p>
+<p><strong>2.1 Git Basics - Getting a Git Repository</strong>
+<strong>2.2 Git Basics - Recording Changes to the Repository</strong>
+<img alt="在这里插入图片描述" src="https://camo.githubusercontent.com/c3137f535e5e76e5ac01828c0a7ff95612e3fca4/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137313430313834372e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" /></p>
+<section id="getting-a-git-repository">
+<h2>1. Getting a Git Repository<a class="headerlink" href="#getting-a-git-repository" title="Permalink to this heading">#</a></h2>
+<p>有两种取得 Git 项目仓库的方法。</p>
+<ul class="simple">
+<li><p>第一种是在现有项目或目录下导入所有文件到 Git 中；
+You can take a local directory that is currently not under version control, and turn it into a Git repository, or</p></li>
+<li><p>第二种是从一个服务器克隆一个现有的 Git 仓库。
+You can clone an existing Git repository from elsewhere.</p></li>
+</ul>
+<section id="initializing-a-repository-in-an-existing-directory">
+<h3>Initializing a Repository in an Existing Directory<a class="headerlink" href="#initializing-a-repository-in-an-existing-directory" title="Permalink to this heading">#</a></h3>
+<p>如果你打算使用 Git 来对现有的项目进行管理，你只需要进入该项目目录并输入：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git init
+</pre></div>
+</div>
+<p>注意现在是在GitTest这个上级目录中做版本控制， 所以要在GitTest上右键，点击 git bush.
+<img alt=".git目录" src="https://camo.githubusercontent.com/3db741358b1310b2fec34aec092537a080d70e68/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137323934343839362e706e67" />
+该命令将创建一个名为 .git 的子目录，这个子目录含有你初始化的 Git 仓库中所有的必须文件，这些文件是 Git 仓库的骨干。 但是，在这个时候，我们仅仅是做了一个<strong>初始化</strong>的操作，你的<strong>项目里的文件还没有被跟踪</strong>。
+This creates a new subdirectory named .git that contains all of your necessary repository files — a Git repository skeleton. At this point, <strong>nothing in your project is tracked yet</strong>.</p>
+<p><em>所以这里推断出， nothing added to commit but untracked files present 是因为我做了修改的东西没有添加到暂存区域（staging area）</em>
+【之后会说到这个暂存区域， 大家多看上面两张图， 就可以理解清楚Git的基本操作原理】</p>
+<p>如果你是在一个已经存在文件的文件夹（而不是空文件夹）中初始化 Git 仓库来进行版本控制的话，你应该开始跟踪这些文件并提交。 你可通过 git add 命令来实现对指定文件的跟踪，然后执行 git commit 提交：
+If you want to start version-controlling existing files (as opposed to an empty directory), you should probably begin tracking those files and do an initial commit. You can accomplish that with a few git add commands that specify the files you want to track, followed by a git commit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git add gittest
+$ git commit -m &#39;initial project version&#39;
+</pre></div>
+</div>
+<p>如下图， 执行<strong>git add</strong>后， 我的名为gittest的文件就会被跟踪(track), 也就是把它状态变为staged, 也就把它放入了staging area(暂存区域).
+<img alt="track gittest dir" src="https://camo.githubusercontent.com/d8bd7012a385e33f8b87a8dbbd836c43768242e3/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137333731323835362e706e67" />
+<a id="pic">三种工作目录与四种文件状态</a>
+<img alt="四种文件状态" src="https://camo.githubusercontent.com/b12d0caea3f77cf44b79aff879e833c8cc64c241/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f323031393031333131373338333938342e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" />
+<img alt="进入staging 工作区" src="https://camo.githubusercontent.com/8e2e448308bd55cd141e78cfce5d7e1b676aa2be/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137333932373439382e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" /></p>
+<p>稍后我们再逐一解释每一条指令的意思。现在，你已经得到了一个实际维护（或者说是跟踪）着若干个文件的 Git 仓库。
+We’ll go over what these commands do in just a minute. At this point, you have a Git repository with tracked files and an initial commit.</p>
+<p><strong>Git 建立 Local Repository</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir project; cd project #或者手动创建一个本地文件夹， 用右键git bush
+$ git init
+$ echo &quot;hello&quot; &gt; hello.txt
+$ git add .             #将修改（modified）过的文件添加到暂存区(staging area)
+$ git commit -m &#39;initial&#39; #提交commit, 初始化提交信息。
+</pre></div>
+</div>
+<p>发现一个比较详细的git命令举例：<a class="reference external" href="https://blog.longwin.com.tw/2009/05/git-learn-test-command-2009/">link</a>
+&gt; 和 &gt;&gt; 的 区别: <a class="reference external" href="https://stackoverflow.com/questions/39024073/using-echo-what-is-difference-between-and">What is difference between &gt; and &gt;&gt;</a></p>
+</section>
+<section id="cloning-an-existing-repository">
+<h3>Cloning an Existing Repository<a class="headerlink" href="#cloning-an-existing-repository" title="Permalink to this heading">#</a></h3>
+<p>如果你想获得一份<strong>已经存在了的 Git 仓库的拷贝</strong>，比如说，你想为某个开源项目贡献自己的一份力，这时就要用到 git clone 命令。 如果你对其它的 VCS 系统（比如说Subversion）很熟悉，请留心一下你所使用的命令是”clone”而不是”checkout”。 这是 Git 区别于其它版本控制系统的一个重要特性，Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 当你执行 git clone 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。 事实上，如果你的服务器的磁盘坏掉了，你通常可以使用任何一个克隆下来的用户端来重建服务器上的仓库（虽然可能会丢失某些服务器端的挂钩设置，但是所有版本的数据仍在。</p>
+<p>克隆仓库的命令格式是</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone [url] 。
+</pre></div>
+</div>
+<p>以Girls In AI 项目为例：
+<img alt="在这里插入图片描述" src="https://camo.githubusercontent.com/e50df43a1233954e575e82a94dce10bc6ed5fdd7/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137353130323635352e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" />
+<img alt="在这里插入图片描述" src="https://camo.githubusercontent.com/a320bfcdb7088ba14549af3564542001abb066de/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137353230303534362e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" />
+之后在命令行输入</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Jane</span><span class="o">-</span><span class="n">QinJ</span><span class="o">/</span><span class="n">Girls</span><span class="o">-</span><span class="n">In</span><span class="o">-</span><span class="n">AI</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Git 支持多种数据传输协议。 上面的例子使用的是 https:// 协议，不过你也可以使用 git:// 协议或者使用 SSH 传输协议，比如 user&#64;server:path/to/repo.git 。</p>
+</section>
+<section id="recording-changes-to-the-repository">
+<h3>Recording Changes to the Repository<a class="headerlink" href="#recording-changes-to-the-repository" title="Permalink to this heading">#</a></h3>
+<p>记录每次更新到仓库</p>
+<p>这个算是版本控制最常用的功能了， 就是记录你的每一次修改。 你还可以为每一次修改添加必要的批注， 每一次的修改都会以快照的形式记录， 所以随时可以恢复成上一状态。</p>
+<p>再回顾上面的图，使用 Git 时文件的生命周期如下：
+<img alt="The life cycle of Git's file" src="https://camo.githubusercontent.com/20b4bc002beaec8811d3b373d75ad677b57e43b2/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313138303030373232372e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" />
+下面详细介绍一下这几个Git中的文件状态：</p>
+<p>Remember that each file in your <strong>working directory</strong> can be in one of two states:  <strong>tracked or untracked.</strong>
+请记住，你工作目录下的每一个文件都不外乎这两种状态：*<em>已跟踪或未跟踪。</em></p>
+<ul class="simple">
+<li><p>Tracked files are files that were in the last snapshot; they can be unmodified, modified, or staged. In short, tracked files are files that Git knows about.
+已跟踪（Tracked ）的文件是指那些被纳入了版本控制的文件，在上一次快照中有它们的记录，在工作一段时间后，它们的状态可能处于未修改（unmodified），已修改（modified）或已放入暂存区（staged）。</p></li>
+<li><p>Untracked files are everything else — any files in your working directory that were not in your last snapshot and are not in your staging area. When you first clone a repository, all of your files will be tracked and unmodified because Git just checked them out and you haven’t edited anything.
+工作目录中除已跟踪文件以外的所有其它文件都属于未跟踪文件（untracked），它们既不存在于上次快照的记录中，也没有放入暂存区。 初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态。</p></li>
+</ul>
+<p>As you edit files, Git sees them as modified, because you’ve changed them since your last commit. As you work, you selectively stage these modified files and then commit all those staged changes, and the cycle repeats.
+编辑（edit）过某些文件之后，由于自上次提交后你对它们做了修改，Git 将它们标记为已修改文件（modified）。 我们逐步将这些修改过的文件放入暂存区(staging area)，然后提交(commit)所有暂存了的修改，如此反复。所以使用 Git 时文件的生命周期如上图。</p>
+<p>简而言之， 当你增加一个没有进行git add的文件， 它就是untracked状态。
+而如果你修改了一个你已经跟踪（tracked）的文件， 它就会变为modified状态。 进一步， 你将这个修改过的文件通过<strong>git add【文件名】</strong> 加入了staging area, 这时它就可以被提交（commit）了。
+最后， 你要将这个提交， push到你的GitHub上， 用git push.</p>
+<section id="checking-the-status-of-your-files">
+<h4>Checking the Status of Your Files（检查当前文件状态）<a class="headerlink" href="#checking-the-status-of-your-files" title="Permalink to this heading">#</a></h4>
+<p>以上各种文件状态， 都是可以查看的， 用到的Git命令为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git status
+</pre></div>
+</div>
+<p>以我的为例
+<img alt="" src="https://camo.githubusercontent.com/5bfbba2994911c9120da638afe43416f2a639115/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313138313434323935342e706e67" />
+我的Git跟踪文件目前没有修改， 所以nothing to commit, working tree clean.
+没有要提交的内容， working tree(工作目录)很干净。</p>
+<p>现在我们新建一个文件， 它就是未被跟踪的（untracked）
+<img alt="" src="https://camo.githubusercontent.com/5bbeb8c1de9c8d0c6060d7e1f3f452af6b8244bd/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313138313831303738302e706e67" />
+熟悉的问题， 看来我之前出现的问题就是在这里。 我新添加的文件仅仅在我本地的工作目录上（working dictionary）， 但它要被提交到git directory才可以被Git控制。</p>
+<p>推荐大家继续将<a href="#pic">Git的工作目录和Git的状态结合起来看。</a>
+<img alt="" src="https://camo.githubusercontent.com/efc719d9d82bffa50cb9bb630fe97bf3cfce0758/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f323031393031333131383232323931392e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c314670626e4670626c52686557787663673d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" />
+现在更加理解了， 我们工作的地方在本地文件夹， 也就是working directory. 而Git要对我们的文件夹进行监控与控制， 是在git directory,</p>
+<p>再重新回顾一下这<a href="#concept">三个工作区域的</a>概念， 相信你会更加理解。</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Jane-QinJ/Jane-QinJ.github.io",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Coding language"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Life/diary.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">工作生活日记</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="basic_cmd.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basic cmd command:</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-a-git-repository">1. Getting a Git Repository</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-a-repository-in-an-existing-directory">Initializing a Repository in an Existing Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-an-existing-repository">Cloning an Existing Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-changes-to-the-repository">Recording Changes to the Repository</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-the-status-of-your-files">Checking the Status of Your Files（检查当前文件状态）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jane Qin
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
