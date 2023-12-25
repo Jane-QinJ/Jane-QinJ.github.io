@@ -679,7 +679,7 @@ take care.
 
 :::{figure-md} markdown-fig
 
-![圣诞节_20231225](images/圣诞节_20231225.jpg)
+<img src="images/圣诞节_20231225.jpg" alt="圣诞节_20231225" />
 
 
 
